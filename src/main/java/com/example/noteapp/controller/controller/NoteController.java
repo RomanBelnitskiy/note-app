@@ -31,6 +31,13 @@ public class NoteController {
                 .body(mapper.toResponse(service.listAll()));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<NoteResponse> getNote(@PathVariable @NotNull @Min(1) Long id) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(mapper.toResponse(service.getById(id)));
+    }
+
     @PostMapping
     public ResponseEntity<NoteResponse> createNewNote(@Valid @NotNull @RequestBody CreateNoteRequest request) {
         NoteDto dto = service.add(mapper.toDto(request));
